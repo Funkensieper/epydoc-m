@@ -1495,14 +1495,14 @@ def call_graph(api_docs, docindex, linker, context=None, **options):
 ######################################################################
 
 _dot_version = None
-_DOT_VERSION_RE = re.compile(r'dot version ([\d\.]+)')
+_DOT_VERSION_RE = re.compile(r'dot - graphviz version ([\d\.]+)')
 def get_dot_version():
     global _dot_version
     if _dot_version is None:
         try:
             out, err = run_subprocess([DOT_COMMAND, '-V'])
             version_info = err or out
-            m = _DOT_VERSION_RE.match(version_info)
+            m = _DOT_VERSION_RE.match(version_info.lower())
             if m:
                 _dot_version = [int(x) for x in m.group(1).split('.')]
             else:
